@@ -1,0 +1,167 @@
+﻿1001 = API.GetEHPCPSApptTypeCPSID(int ehpcpsappttypeid)
+1002 = API.GetCPSDoctorDisplayName(string state, int cpsid)
+1003 = API.GetCPSFacilityDisplayName(string state, int cpsid)
+1004 = API.GetCPSDoctorList(string state)
+1005 = API.GetCPSFacilityList()
+1006 = API.GetEHPApptTypeList(int doctorid)
+1007 = API.GetEHPCPSApptTypeList(int ehpappttypeid)
+1008 = API.GetEHPDoctorList(int facilityid)
+1009 = API.GetEHPFacilityList()
+1010 = API.GetEmailAddress(Guid guid)
+1011 = API.GetGECPSApptTypes(string state)
+1012 = API.GetGECPSApptTypeDisplay(string state, int geappttypeid)
+1013 = API.GetGUID(string email)
+1014 = API.GetLocations(Guid guid)
+1015 = API.GetNPI(Guid guid)
+1016 = API.InvalidLogon(string emailaddress) - Try..Catch
+1017 = API.InvalidLogon(string emailaddress) - "Invalid email address / password combination. Please try again"
+1018 = API.IsAlreadyValidated(Guid guid)
+1019 = API.IsDoctorInDB(string connstring, string fname, string lname, string zipcode, string phone, string npi, string email)
+1020 = API.RegisterUser(string npi, string email)
+1021 = API.ResetPassword(Guid guid, string password)
+1022 = API.SendEmail(EmailType type, Guid guid)
+1023 = API.SetInitialPassword(Guid guid, string password)
+1024 = API.UpdateDatabase(string connstring, string email, string npi)
+1025 = API.UpdateLastLogonDate(int userid)
+1026 = API.UserLogon(string email, string password) - Account disabled
+1027 = API.UserLogon(string email, string password) - Account Locked out - too many failed logon attempts
+1028 = API.UserLogon(string email, string password) - Account not validated yet.
+1029 = API.UserLogon(string email, string password) - Invalid email address / password combination.
+1030 = API.UserLogon(string email, string password) - Try..Catch
+1031 = API.ValidateEmail(Guid guid)
+1032 = API.EHPApptType.Delete()
+1033 = API.EHPApptType.GetDetails()
+1034 = API.EHPApptType.Save()
+1035 = API.EHPCPSApptType.GetDetails()
+1036 = API.EHPCPSApptType.Save()
+1037 = API.EHPCPSApptType.Delete()
+1038 = API.EHPDoctor.GetDetails()
+1039 = API.EHPDoctor.Save()
+1040 = API.EHPDoctor.Delete()
+1041 = API.EHPFacility.Delete()
+1042 = API.EHPFacility.GetDetails()
+1043 = API.EHPFacility.Save()
+1044 = API.Location.RefreshData()
+1045 = API.Location.SaveData()
+1046 = /Admin/AddEditApptType.aspx:btnSave_Click() - Appt Type name cannot be blank.
+1047 = /Admin/AddEditDoctor.aspx:btnSave_Click() - cboGEName.SelectedIndex == 0 - "You must select a Centricity Doctor first."
+1048 = /Admin/AddEditDoctor.aspx:btnSave_Click() - txtEHPName.Text == "" - "The Friendly Name cannot be blank."
+1049 = /Admin/AddEditEHPCPSApptType.aspx:btnSave_Click() - cboGEApptType.SelectedIndex==0 - "You must select a Centricity Appt Type first."
+1050 = /Admin/AddEditFacility.aspx:btnSave_Click() - cboGEName.SelectedIndex==0 - "You must select the Centricity Facility first."
+1051 = /Admin/AddEditFacility.aspx:btnSave_Click() - txtEHPName.Text=="" - "The Friendly Name cannot be blank."
+1052 = /EditProfiles.aspx:btnSave_Click() - txtPhone.Text=="" - "Phone number cannot be blank."
+1053 = /EditProfiles.aspx:btnSave_Click() - txtFax.Text=="" - "Fax number cannot be blank."
+1054 = /EditProfiles.aspx:btnSave_Click() - cboLocation.SelectedIndex==0 - "You must select a location first."
+1055 = /ForgotLogon.aspx:btnRetrieve_Click() - txtEmailAddress.Text=="" - "Email Address cannot be blank."
+1056 = /ForgotLogon.aspx:btnRetrieve_Click() - guid == Guid.Empty - {could not location account in DB by email address} - "There was a problem resetting your password.  Please verify your email address and try again."
+1057 = /ForgotLogon.aspx:ValidateData() - txtEmailAddress.Text == "" - "Email Address cannot be blank."
+1058 = /Logon.aspx:lbResend_Click() - txtEmail.Text == "" - "Email Address must be provided to resend Validation Email."
+1059 = /Logon.aspx:ValidateData() - txtEmail.Text=="" - "Email address cannot be blank."
+1060 = /Logon.aspx:ValidateData() - txtPassword.Text=="" - "Password cannot be blank."
+1061 = /ResendValidation.aspx:btnSend_Click() - txtEmailAddress.Text=="" - "Email Address cannot be blank."
+1062 = /ResetPassword.aspx:ValidatePassword() - txtPassword1.Text != txtPassword2.Text - "Passwords do not match each other."
+1063 = /ResetPassword.aspx:ValidatePassword() - txtPassword1.Text.IndexOfAny(Statics.caDouble)==-1 - "Password must have at least one (1) number."
+1064 = /ResetPassword.aspx:ValidatePassword() - txtPassword1.Text.IndexOfAny(Statics.caUpperAlpha)==-1 - "Password must have at least one (1) upper case letter."
+1065 = /ResetPassword.aspx:ValidatePassword() - txtPassword1.Text.IndexOfAny(Statics.caLowerAlpha)==-1 - "Password must have at least one (1) lower case letter."
+1066 = /ResetPassword.aspx:ValidatePassword() - txtPassword1.Text.IndexOfAny(Statics.caSymbol)==-1 - "Password must have at least one (1) symbol."
+1067 = /Signup.aspx:btnSignup_Click() - no doctor records found in any CPS database that match the user's specified data
+1068 = /Signup.aspx:ValidateData() - txtFirstName.Text=="" - "First Name cannot be blank"
+1069 = /Signup.aspx:ValidateData() - txtLastName.Text=="" - "Last Name cannot be blank"
+1070 = /Signup.aspx:ValidateData() - txtPhoneNumber.Text=="" - "Phone Number cannot be blank"
+1071 = /Signup.aspx:ValidateData() - txtZipCode.Text=="" - "Zip Code cannot be blank"
+1072 = /Signup.aspx:ValidateData() - txtNPI.Text=="" - "NPI cannot be blank."
+1073 = /Signup.aspx:ValidateData() - txtEmailAddress.Text=="" - "Email Address cannot be blank."
+1074 = /Validate.aspx:ValidatePasswords() - txtPassword1.Text != txtPassword2.Text - "Your passwords do not match."
+1075 = /Validate.aspx:ValidatePasswords() - txtPassword1.Text.IndexOfAny(Statics.caUpperAlpha)==-1 - "Your password must contain at least one (1) upper case letter."
+1076 = /Validate.aspx:ValidatePasswords() - txtPassword1.Text.IndexOfAny(Statics.caLowerAlpha)==-1 - "Your password must contain at least one (1) lower case letter."
+1077 = /Validate.aspx:ValidatePasswords() - txtPassword1.Text.IndexOfAny(Statics.caDouble)==-1 - "Your password must contain at least one (1) number."
+1078 = /Validate.aspx:ValidatePasswords() - txtPassword1.Text.IndexOfAny(Statics.caSymbol)==-1 - "Your password must contain at least one (1) symbol."
+1079 = /Validate.aspx:ValidatePasswords() - txtPassword1.Text.Length < Statics.MinPwdLength - "Your password must be at least # characters."
+1080 = /ChangePassword.aspx:btnChange_Click() - txtPass1.Text != txtPass2.text - "Your passwords do not match."
+1081 = API.ValidateCurrentPassword(string password) 
+1082 = /ChangePassword.aspx:btnChange_Click() - API.Session.ValidateCurrentPassword(string Password) returned FALSE - current password incorrect
+1083 = /ChangePassword.aspx:btnChange_Click() - txtPass1.Text.IndexOfAny(Statics.caDouble)==-1 - "Your password must have at least one (1) number in it."
+1084 = /ChangePassword.aspx:btnChange_Click() - txtPass1.Text.IndexOfAny(Statics.caUpperAlpha)==-1 - "Your password must have at least one (1) upper case letter in it."
+1085 = /ChangePassword.aspx:btnChange_Click() - txtPass1.Text.IndexOfAny(Statics.caLowerAlpha)==-1 - "Your password must have at least one (1) lower case letter in it."
+1086 = /ChangePassword.aspx:btnChange_Click() - txtPass1.Text.IndexOfAny(Statics.caSymbol)==-1 - "Your password must have at least one (1) symbol in it."
+1087 = /ChangePassword.aspx:btnChange_Click() - txtPass1.Text.Length < Statics.MinPwdLength - "Your password must have at least one (1) symbol in it."
+1088 = /ChangePassword.aspx:btnChange_Click() - txtPass1.Text=="" ^^ txtPass2.Text=="" ^^ txtCPassword.Text=="" - "None of the fields can be blank."
+1089 = API.GetFacilityContactList(int facilityid) 
+1090 = /Admin/AddEditFacilityContacts.aspx:btnSave_Click() - txtName.Text=="" - "Name cannot be blank."
+1091 = /Admin/AddEditFacilityContacts.aspx:btnSave_Click() - txtEmailAddress.Text=="" - "Email Address cannot be blank."
+1092 = API.AddUpdateFacilityContact(int facilityid, int facilitycontactid, string name, string emailaddress)
+1093 = API.GetFacilityContactDetails(int facilitycontactid)
+1094 = API.DeleteFacilityContact(int facilitycontactid)
+1095 = API.GetCPSApptTypeIDs(int ehpappttypeid)
+1096 = API.GetCPSScheduleIDs()
+1097 = API.GetOpenApptSlots()
+1098 = API.GetRefDrPatients()
+1099 = /ScheduleAppt.aspx - cboLocation.Items.Count <= 1 - "You must select a Referring From location first."
+1100 = /ScheduleAppt.aspx - cboLocation.SelectedIndex == 0 - "You must select a Referring From location first."
+1101 = /ScheduleAppt.aspx - cboEHPFacility.Items.Count <= 1 - "You must select a Facility first."
+1102 = /ScheduleAppt.aspx - cboEHPFacility.SelectedIndex == 0 - "You must select a Facility first."
+1103 = /ScheduleAppt.aspx - cboEHPDoctor.Items.Count <= 1 - "You must select a Doctor first."
+1104 = /ScheduleAppt.aspx - cboEHPDoctor.SelectedIndex == 0 - "You must select a Doctor first."
+1105 = /ScheduleAppt.aspx - cboApptType.Items.Count <= 1 - "You must select an Appointment Type first."
+1106 = /ScheduleAppt.aspx - cboApptType.SelectedIndex == 0 - "You must select an Appointment Type first."
+1107 = /ScheduleAppt.aspx - cboApptSlot.Items.Count <= 1 - "You must select an Appointment Slot first."
+1108 = /ScheduleAppt.aspx - cboApptSlot.SelectedIndex == 0 - "You must select an Appointment Slot first."
+1109 = /ScheduleAppt.aspx - cboPatient.Items.Count <= 1 - "You must select a Patient first."
+1110 = /ScheduleAppt.aspx - cboPatient.SelectedIndex == 0 - "You must select a Patient first."
+1111 = /ScheduleAppt.aspx - !rbBoth.Checked && !rbEyeLeft.Checked && !rbEyeRight.Checked - "You must select an Eye first."
+1112 = /NewPatient.aspx - txtFirstName.Text=="" - "You must provide the First Name."
+1113 = /NewPatient.aspx - txtLastName.Text=="" - "You must provide the Last Name."
+1114 = /NewPatient.aspx - cboGender.SelectedIndex==0 - "You must select the Gender first."
+1115 = /NewPatient.aspx - txtDOB.Text=="" - "You must provide the Date of Birth."
+1116 = /NewPatient.aspx - txtPhone.Text=="" - "You must provide the Phone number."
+1117 = API.CreateNewPatient()
+1118 = API.PatientExists()
+1119 = API.TransferPatientReferringDoctor()
+1120 = /ValidatePatient.aspx - txtSSN1.Text=="" - "You must provide the complete social security number first."
+1121 = /ValidatePatient.aspx - txtSSN2.Text=="" - "You must provide the complete social security number first."
+1122 = /ValidatePatient.aspx - txtSSN3.Text=="" - "You must provide the complete social security number first."
+1123 = /ValidatePatient.aspx - SSN number < 9 digits
+1124 = /ValidatePatient.aspx - SSN contains either alpha characters or symbols. - "The social security number can only contain numbers - no letters or symbols allowed."
+1125 = /ValidatePatient.aspx - SSN entered doesn't match SSN in CPS Database - "The social security number you entered does not match this patient's information on file."
+1126 = API.GetCompanyID()
+1127 = API.GetApptStart()
+1128 = API.GetApptStop()
+1129 = API.BookAppointment() - trying to insert the actual appointment record (query #1)
+1130 = API.BookAppointment() - trying to update the ApptSlot record (query #2)
+1131 = API.SendMail(string name, string emailaddress, string subject, string msg)
+1132 = API.GetFacilityContactDetails(string state, int cpsfacilityid)
+1133 = ScheduleAppt.aspx - txtPhone.Text == "" - "You must provide the patient's current phone number."
+1134 = ScheduleAppt.aspx - txtPhone.Text.Length < 10 - "You must provide the patient's current phone number."
+1135 = ScheduleAppt.aspx - txtReason.Text=="" - "You must provide the Reason for Visit."
+1136 = API.UpdatePatientPhoneNumber() - API.Session.SWState == ""
+1137 = API.UpdatePatientPhoneNumber()
+1138 = API.GetPatientPhoneNumber()
+1139 = API.GetOpenApptSlots() - scheduleids=="" - EHP Doctor probably does not have any schedules at the selected location/clinic.
+1140 = API.AdminGetLockedAccounts() - trying to pull all locked accounts (invalidlogonattempts = 3)
+1141 = API.AdminUnlockAccount() - sql query to unlock account
+1142 = API.AdminCreateMasterAccount() - sql query to create account
+1143 = API.AdminAccountExists() - sql query to check for email / account
+1144 = API.AdminGetMasterAccounts() - 
+1145 = API.AdminGetMasterChildren() - 
+1146 = /Admin/AddChild.aspx - Child account name cannot be blank.
+1147 = /Admin/AddChild.aspx - Child account NPI cannot be blank.
+1148 = /Admin/VIP.aspx - Master account EmailAddress cannot be blank.
+1149 = API.Session.AdminSaveMasterChild() - exception
+1150 = API.Session.AdminDeleteChild() - exception
+1151 = API.Session.AdminLoadChild() - exception
+1152 = API.Session.AdminConvertToMaster() - Exception
+1153 = API.Session.GetCurrentPassword() - Exception
+1154 = API.Session.GetSignatureSourceMID() - Exception
+1156 = API.Session.GetAccountList() - Exception
+1157 = API.Session.GetAccountDetails() - Exception
+1158 = API.Session.UpdateAccount() - Exception
+1159 = API.Session.DeleteAccount() - Exception
+1160 = API.Session.NPIAlreadyRegistered() - Exception
+1161 = /Signup.aspx:btnSignup_Click() - NPI number already registered in the portal database
+1162 = /AddChild.aspx:btnSave_Click() - NPI number already registered in the portal database
+1163 = API.Session.GetEmailByNPI() - Exception
+1164 = API.Session.GetNONVIPAccounts() - Exception
+1165 = API.Session.GetNONVIPAccountByUserID() - Exception
+1166 = API.Session.UpdateNONVIPAccount() - Exception
+1167 = API.Session.DeleteNONVIPAccount() - Exception
+1168 = API.Session.DeleteVIPAccount() - Exception

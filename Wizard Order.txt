@@ -1,0 +1,7 @@
+﻿1 = Referring from - API.Session.SWLocationID
+2 = EHP Facility - API.Session.SWEHPFacilityID / SWCPSFacilityID
+3 = EHP Doctor - API.Session.SWEHPDocotrID / SWCPSDoctorID
+4 = Appt Type - API.Session.SWEHPApptTypeID / SWCPSApptTypeIDs[] (int[])
+5 = Appt Slot
+6 = Patient
+7 = Eye (Right, Left, Both)

@@ -1,0 +1,1 @@
+﻿1.  Need a report to show a list for all doctors and their appointment types (EHP AND CPS) for all clinics.
