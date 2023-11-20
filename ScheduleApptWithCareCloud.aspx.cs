@@ -431,7 +431,7 @@ public partial class ScheduleApptWithCareCloud : System.Web.UI.Page
                 foreach (DataRow dr in dt.Rows)
                 {//Remaining to check enable.need to check when get details.
                  // if (ds.Tables["address"].Rows[0]["state_name"].ToString() != API.Session.SWState) continue;
-                        if (dr["id"].ToString()== "46679"  || dr["id"].ToString() == "39341") //|| dr["id"].ToString() == "44736"
+                        if (dr["id"].ToString()== "46679" )// || dr["id"].ToString() == "39341") //|| dr["id"].ToString() == "44736"
                     {
                        
                           
@@ -1224,7 +1224,7 @@ public partial class ScheduleApptWithCareCloud : System.Web.UI.Page
                 API.Session.CreateAppointmentLog(API.Session.Email, Convert.ToInt32(Locarray[1].ToString())
                     , cboEHPFacility.SelectedItem.Text, cboEHPDoctor.SelectedItem.Text, cboApptType.SelectedItem.Text
                     , Convert.ToDateTime(cboApptSlot.SelectedItem.ToString()), (API.Session.ChState.ToString() == "ETN" ? "EST" : "CST")
-                    , hdnpId.Value, API.Session.Phone, eye, txtReason.Text, "", API.Session.PracticeName, API.Session.ChState.ToString());
+                    , hdnpId.Value, API.Session.Phone, eye, txtReason.Text, "Successful", API.Session.PracticeName, API.Session.ChState.ToString());
                 Response.Redirect("~/CareCloudApptDetails.aspx");
 
             }
