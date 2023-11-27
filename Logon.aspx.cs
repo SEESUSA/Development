@@ -60,8 +60,8 @@ public partial class Logon : System.Web.UI.Page
                 }
                 else
                 {
-                    if (API.Session.IsAdmin) Response.Redirect("./Admin/Default.aspx");
-                    else //OpenLoginScreen();
+                    //if (API.Session.IsAdmin) Response.Redirect("./Admin/Default.aspx");
+                    //else //OpenLoginScreen();
                     Response.Redirect("./");
                 }
             }
