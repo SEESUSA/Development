@@ -40,6 +40,7 @@ public class API
     private bool issetupadmin = false;
     private string isState = "";
     private string chState = "";
+    private int entityid = 0;
     private bool loggedon = false;
     private string npi = "";
     private int userid = 0;
@@ -123,7 +124,7 @@ public class API
     public int DoctorValue { get { return doctorValue; } set { doctorValue = value; } }
     public int AppointmentTypeValue { get { return appointmentTypeValue; } set { appointmentTypeValue = value; } }
     public string PatientPhone { get { return phoneValue; } set { phoneValue = value; } }
-
+    public int EntityID { get { return entityid; } set { entityid = value; } }
     #region Properties
     // ALL USERS
     public string Email { get { return email; } set { email = value; } }
@@ -417,6 +418,8 @@ public class API
         }
         catch (Exception ex) { return ex.Message; }
     }
+
+    
     public static byte[] Encrypt(string plainText, byte[] Key, byte[] IV)
     {
         byte[] encrypted;
@@ -2356,10 +2359,10 @@ public class API
                     Msg.Body = "You are receiving this email because you requested a password reset on our portal.  If you did not ";
                     Msg.Body += "request this password reset, please delete this email and no further action will be necessary on your part.<BR><BR>";
                     Msg.Body += "If you did request the password reset, please click the link below:<BR><BR>";
-                    Msg.Body += "<a href=\"http://extranet.eyehealthpartners.com/ResetPassword.aspx?email=" + API.Session.Encrypt(email.ToString().Trim()); //email.ToString();
+                    Msg.Body += "<a href=\"http://uat.theseesgroup.com/ResetPassword.aspx?email=" + API.Session.Encrypt(email.ToString().Trim()); //email.ToString();
                     Msg.Body += "\">Password Reset</a><BR><BR>";
                     Msg.Body += "If the above link doesn't work, copy and paste the following URL into your browser.<BR><BR>";
-                    Msg.Body += "http://extranet.eyehealthpartners.com/resetpassword.aspx?email=" + API.Session.Encrypt(email.ToString().Trim());// email.ToString();
+                    Msg.Body += "http://uat.theseesgroup.com/resetpassword.aspx?email=" + API.Session.Encrypt(email.ToString().Trim());// email.ToString();
                     Msg.Body += "<BR><BR><BR> RPP Support Team <BR>";
                     Msg.Body += "RPPSupport@theseesgroup.com <BR>";
                     Msg.Body += "SEES Group, LLC <BR>";
@@ -3587,7 +3590,7 @@ public class API
         {
             q = @"IF(@PatientSSN='') 
                         BEGIN
-                        IF EXISTS (SELECT PID FROM  PatientMaster_AL WHERE FirstName=@first_name AND LastName= @last_name AND DateOfBirth=@date_of_birth )
+                        IF EXISTS (SELECT PID FROM  PatientMaster_AL WHERE LOWER(FirstName)=LOWER(@first_name) AND LOWER(LastName)= LOWER(@last_name) AND DateOfBirth=@date_of_birth )
                         BEGIN
                         Select  1 as Count, 0 as SSNExists  
                         END
@@ -3598,11 +3601,11 @@ public class API
                         END
                         ELSE
                         BEGIN
-                        IF EXISTS (SELECT PID FROM  PatientMaster_AL WHERE  FirstName=@first_name AND LastName= @last_name  AND DateOfBirth=@date_of_birth  AND  PatientSSN=@PatientSSN)
+                        IF EXISTS (SELECT PID FROM  PatientMaster_AL WHERE  LOWER(FirstName)=LOWER(@first_name) AND LOWER(LastName)= LOWER(@last_name)  AND DateOfBirth=@date_of_birth  AND  PatientSSN=@PatientSSN)
                         BEGIN
                         Select  1 as Count , 0 as SSNExists 
                         END
-                        ELSE IF EXISTS (SELECT PID FROM  PatientMaster_AL WHERE  FirstName=@first_name AND LastName= @last_name  AND DateOfBirth=@date_of_birth  AND  PatientSSN!=@PatientSSN)
+                        ELSE IF EXISTS (SELECT PID FROM  PatientMaster_AL WHERE  LOWER(FirstName)=LOWER(@first_name) AND LOWER(LastName)= LOWER(@last_name)  AND DateOfBirth=@date_of_birth  AND  PatientSSN!=@PatientSSN)
                         BEGIN
                         Select  0 as Count , 0 as SSNExists 
                         END
@@ -3620,7 +3623,7 @@ public class API
         {
             q = @"IF(@PatientSSN='') 
                         BEGIN
-                        IF EXISTS (SELECT PID FROM  PatientMaster_EastTN WHERE FirstName=@first_name AND LastName= @last_name AND DateOfBirth=@date_of_birth )
+                        IF EXISTS (SELECT PID FROM  PatientMaster_EastTN WHERE LOWER(FirstName)=LOWER(@first_name) AND LOWER(LastName)= LOWER(@last_name) AND DateOfBirth=@date_of_birth )
                         BEGIN
                         Select  1 as Count, 0 as SSNExists  
                         END
@@ -3631,11 +3634,11 @@ public class API
                         END
                         ELSE
                         BEGIN
-                        IF EXISTS (SELECT PID FROM  PatientMaster_EastTN WHERE  FirstName=@first_name AND LastName= @last_name  AND DateOfBirth=@date_of_birth  AND  PatientSSN=@PatientSSN)
+                        IF EXISTS (SELECT PID FROM  PatientMaster_EastTN WHERE  LOWER(FirstName)=LOWER(@first_name) AND LOWER(LastName)= LOWER(@last_name)  AND DateOfBirth=@date_of_birth  AND  PatientSSN=@PatientSSN)
                         BEGIN
                         Select  1 as Count , 0 as SSNExists 
                         END
-                        ELSE IF EXISTS (SELECT PID FROM  PatientMaster_EastTN WHERE  FirstName=@first_name AND LastName= @last_name  AND DateOfBirth=@date_of_birth  AND  PatientSSN!=@PatientSSN)
+                        ELSE IF EXISTS (SELECT PID FROM  PatientMaster_EastTN WHERE  LOWER(FirstName)=LOWER(@first_name) AND LOWER(LastName)= LOWER(@last_name)  AND DateOfBirth=@date_of_birth  AND  PatientSSN!=@PatientSSN)
                         BEGIN
                         Select  0 as Count , 0 as SSNExists 
                         END
@@ -3653,7 +3656,7 @@ public class API
         {
             q = @"IF(@PatientSSN='') 
                         BEGIN
-                        IF EXISTS (SELECT PID FROM  PatientMaster_MiddleTN WHERE FirstName=@first_name AND LastName= @last_name AND DateOfBirth=@date_of_birth )
+                        IF EXISTS (SELECT PID FROM  PatientMaster_MiddleTN WHERE LOWER(FirstName)=LOWER(@first_name) AND LOWER(LastName)= LOWER(@last_name) AND DateOfBirth=@date_of_birth )
                         BEGIN
                         Select  1 as Count, 0 as SSNExists  
                         END
@@ -3664,11 +3667,11 @@ public class API
                         END
                         ELSE
                         BEGIN
-                        IF EXISTS (SELECT PID FROM  PatientMaster_MiddleTN WHERE  FirstName=@first_name AND LastName= @last_name  AND DateOfBirth=@date_of_birth  AND  PatientSSN=@PatientSSN)
+                        IF EXISTS (SELECT PID FROM  PatientMaster_MiddleTN WHERE  LOWER(FirstName)=LOWER(@first_name) AND LOWER(LastName)= LOWER(@last_name)  AND DateOfBirth=@date_of_birth  AND  PatientSSN=@PatientSSN)
                         BEGIN
                         Select  1 as Count , 0 as SSNExists 
                         END
-                        ELSE IF EXISTS (SELECT PID FROM  PatientMaster_MiddleTN WHERE  FirstName=@first_name AND LastName= @last_name  AND DateOfBirth=@date_of_birth  AND  PatientSSN!=@PatientSSN)
+                        ELSE IF EXISTS (SELECT PID FROM  PatientMaster_MiddleTN WHERE  LOWER(FirstName)=LOWER(@first_name) AND LOWER(LastName)=LOWER(@last_name)  AND DateOfBirth=@date_of_birth  AND  PatientSSN!=@PatientSSN)
                         BEGIN
                         Select  0 as Count , 0 as SSNExists 
                         END
@@ -3866,7 +3869,7 @@ public class API
         cm.Parameters.Add("@PatientId", SqlDbType.VarChar, 100).Value = PatientId;
         cm.Parameters.Add("@first_name", SqlDbType.VarChar, 35).Value = first_name;
         cm.Parameters.Add("@last_name", SqlDbType.VarChar, 60).Value = last_name;
-        cm.Parameters.Add("@gender_code", SqlDbType.VarChar, 1).Value = gender_code;
+        cm.Parameters.Add("@gender_code", SqlDbType.VarChar, 30).Value = gender_code;
         cm.Parameters.Add("@date_of_birth", SqlDbType.DateTime).Value = date_of_birth;
         cm.Parameters.Add("@line1", SqlDbType.VarChar, 30).Value = line1;
         cm.Parameters.Add("@city", SqlDbType.VarChar, 30).Value = city;
@@ -4003,7 +4006,68 @@ public class API
         return result;
     }
 
-    public DataTable GetDoctors(string LocationId)
+    public DataTable GetLoginModes()
+    {
+        string result = "";
+        SqlDataReader Dr = null;
+        DataTable dt = new DataTable();
+        string q = "Select * from SEESEntity_SSB";
+
+        SqlConnection cn = null;
+        cn = new SqlConnection(Statics.EHPconnstring);
+        SqlCommand cm = new SqlCommand(q, cn);
+        cm.CommandType = CommandType.Text;
+        cm.Parameters.Clear();
+        try
+        {
+            cn.Open();
+            Dr = cm.ExecuteReader();
+            if (Dr != null)
+            {
+                dt.Load(Dr);
+            }
+        }
+        catch (Exception ex) { CreateNewPatientError(1117, ex.ToString()); }
+        finally
+        {
+            if (cm != null) cm.Dispose();
+            if (cn != null) { if (cn.State != ConnectionState.Closed) cn.Close(); cn.Dispose(); }
+        }
+        return dt;
+    }
+
+    public DataTable GetFacilities(int entityid)
+    {
+        string result = "";
+        SqlDataReader Dr = null;
+        DataTable dt = new DataTable();
+        //string q = "Select * from Facility_SSB where FK_SEESEntityID=@FK_SEESEntityID and Enabled=1";
+        string q = "Select FSSB.* from FacilityMaster FSSB Inner join SEESEntity SSSB on SSSB.SEESEntityID=FSSB.FK_SEESEntityID and SSSB.Enabled=1 where FSSB.FK_SEESEntityID=@FK_SEESEntityID and FSSB.Enabled=1 ORDER BY FSSB.FacilityName ASC";
+        SqlConnection cn = null;
+        cn = new SqlConnection(Statics.EHPconnstring);
+        SqlCommand cm = new SqlCommand(q, cn);
+        cm.CommandType = CommandType.Text;
+        cm.Parameters.Clear();
+        cm.Parameters.Add("@FK_SEESEntityID", SqlDbType.VarChar, 100).Value = entityid;
+        try
+        {
+            cn.Open();
+            Dr = cm.ExecuteReader();
+            if (Dr != null)
+            {
+                dt.Load(Dr);
+            }
+        }
+        catch (Exception ex) { CreateNewPatientError(1117, ex.ToString()); }
+        finally
+        {
+            if (cm != null) cm.Dispose();
+            if (cn != null) { if (cn.State != ConnectionState.Closed) cn.Close(); cn.Dispose(); }
+        }
+        return dt;
+    }
+
+    public DataTable GetDoctors(string LocationId, int EntityId)
     {
         /*
          * in the course of booking an appointment, we decided to allow the referring 
@@ -4014,7 +4078,11 @@ public class API
         string result = "";
         SqlDataReader Dr = null;
         DataTable dt = new DataTable();
-        string q = " Select * from  Appointment_Doctors where LocationId=@LocationId ";
+        // string q = " Select * from  Appointment_Doctors where LocationId=@LocationId ";
+        string q = @" Select AD.* from Appointment_Doctors AD
+                      inner join FacilityMaster AF on AD.FK_RPPFacilityID=AF.RPPFacilityID and AF.Enabled=1
+                      Inner join SEESEntity SSSB on SSSB.SEESEntityID=AD.FK_SEESEntityID and SSSB.Enabled=1
+                      where SSSB.SEESEntityID=@EntityId and AF.CCFacilityID=@LocationId and AD.Enabled=1 ORDER BY AD.DisplayName ASC";
 
         SqlConnection cn = null;
         cn = new SqlConnection(Statics.EHPconnstring);
@@ -4022,6 +4090,7 @@ public class API
         cm.CommandType = CommandType.Text;
         cm.Parameters.Clear();
         cm.Parameters.Add("@LocationId", SqlDbType.VarChar, 100).Value = LocationId;
+        cm.Parameters.Add("@EntityId", SqlDbType.Int).Value = EntityId;
         try
         {
             cn.Open();
@@ -4043,7 +4112,7 @@ public class API
         }
         return dt;
     }
-    public DataTable GetAppointmentType(string DoctorId)
+    public DataTable GetAppointmentType(string DoctorId, string LocationId,int EntityId)
     {
         /*
          * in the course of booking an appointment, we decided to allow the referring 
@@ -4054,7 +4123,12 @@ public class API
         string result = "";
         SqlDataReader Dr = null;
         DataTable dt = new DataTable();
-        string q = " Select * from  AppointmentTypeMaster where DoctorId=@DoctorId ";
+        // string q = " Select * from  AppointmentTypeMaster where DoctorId=@DoctorId ";
+        string q = @"Select ATM.* from AppointmentTypeMaster ATM
+                     inner join DoctorsAppointmentType DAT on ATM.AppointmentTypeMasterId=DAT.FK_AppointmentTypeMasterId and DAT.Enabled=1
+                     inner join FacilityMaster AF on DAT.FK_RPPFacilityID =AF.RPPFacilityID and AF.Enabled=1
+                     Inner join SEESEntity SSSB on SSSB.SEESEntityID=ATM.FK_SEESEntityID and SSSB.Enabled=1
+                     where DAT.CCDoctorId=@DoctorId  and DAT.FK_SEESEntityID=@EntityId and AF.CCFacilityID =@LocationId and  ATM.Enabled=1 ORDER BY ATM.DisplayName ASC";
 
         SqlConnection cn = null;
         cn = new SqlConnection(Statics.EHPconnstring);
@@ -4062,6 +4136,8 @@ public class API
         cm.CommandType = CommandType.Text;
         cm.Parameters.Clear();
         cm.Parameters.Add("@DoctorId", SqlDbType.VarChar, 100).Value = DoctorId;
+        cm.Parameters.Add("@LocationId", SqlDbType.VarChar, 100).Value = LocationId;
+        cm.Parameters.Add("@EntityId", SqlDbType.Int).Value = EntityId;
         try
         {
             cn.Open();

@@ -48,6 +48,9 @@ public partial class Admin_AdminTask : System.Web.UI.UserControl
             case "NON-VIP Administration":
                 Response.Redirect("~/Admin/NONVIP.aspx");
                 break;
+            case "Export Appointment Log":
+                Response.Redirect("~/Export.aspx");
+                break;
             default:
                 break;
         }
@@ -64,6 +67,7 @@ public partial class Admin_AdminTask : System.Web.UI.UserControl
         cboTask.Items.Add(new ListItem("NON-VIP Administration"));
         cboTask.Items.Add(new ListItem("Unlock Accounts"));
         cboTask.Items.Add(new ListItem("Change Password"));
+        cboTask.Items.Add(new ListItem("Export Appointment Log"));
         cboTask.Items.Add(new ListItem("Log Off"));
         //cboTask.SelectedIndex = 0;
         SetTask();
@@ -94,6 +98,9 @@ public partial class Admin_AdminTask : System.Web.UI.UserControl
                     break;
                 case "/EHPortal/ChangePassword.aspx":
                     if (API.Session.IsSetupAdmin) cboTask.SelectedIndex = 7; else cboTask.SelectedIndex = 5;
+                    break;
+                case "/EHPortal/Export.aspx":
+                    if (API.Session.IsSetupAdmin) cboTask.SelectedIndex = 8; else cboTask.SelectedIndex = 6;
                     break;
                 default:
                     cboTask.SelectedIndex = 0;

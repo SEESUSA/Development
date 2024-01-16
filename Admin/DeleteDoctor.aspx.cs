@@ -37,7 +37,7 @@ public partial class Admin_DeleteDoctor : System.Web.UI.Page
     }
     protected void Err(int Num, string Msg)
     {
-        litError.Text += "Error " + Num.ToString() + " - " + Msg + "<br />";
+        litError.Text += "Error " + Msg + "<br />";//+ Num.ToString() + " - " 
     }
     protected void btnYes_Click(object sender, EventArgs e)
     {
