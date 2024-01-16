@@ -361,8 +361,100 @@ public partial class ScheduleApptWithCareCloud : System.Web.UI.Page
 
 
     }
+    //protected void RefreshEHPFacilities_API()
+    //{
+    //    string[] Locarray = cboLocation.SelectedItem.Value.Split('^');
+    //    API.Session.ChState = Locarray[0].ToString();
+    //    if (Locarray[0].ToString() == "ETN")
+    //    {
+    //        Label3.Text = "Appointment Slot (Eastern Time)";
+    //    }
+    //    else
+    //    {
+    //        Label3.Text = "Appointment Slot (Central Time)";
+    //    }
+    //    //if (Locarray[0] == "AL")
+    //    //{
+    //    //    Response.Redirect("~/ScheduleAppt.aspx");
+    //    //}
+    //    //else { 
+
+    //    #region Get Facility
+
+    //    var responseString = "";
+    //    WebRequest request = WebRequest.Create(Statics.URL_GETFAcility);
+    //    DataSet ds = new DataSet();
+    //    request.Method = "GET";
+    //    request.ContentType = "application/json";
+    //    request.Headers.Add("Authorization", API.Session.AccessToken);
+    //    HttpWebResponse httpWebResponse = null;
+    //    httpWebResponse = (HttpWebResponse)request.GetResponse();
+
+    //    using (Stream reader = httpWebResponse.GetResponseStream())
+    //    {
+    //        StreamReader sr = new StreamReader(reader);
+    //        responseString = sr.ReadToEnd();
+    //        sr.Close();
+    //    }
+
+    //    try
+    //    {
+    //        XmlDocument xd = new XmlDocument();
+    //        responseString = "{ \"rootNode\": {" + responseString.Trim().TrimStart('{').TrimEnd('}') + "} }";
+    //        xd = (XmlDocument)JsonConvert.DeserializeXmlNode(responseString);
+
+    //        ds.ReadXml(new XmlNodeReader(xd));
+    //        dsLocation = ds;
+    //        //  return ds; 
+    //    }
+    //    catch (Exception ex)
+    //    { throw new ArgumentException(ex.Message); }
+
+
+
+    //    #endregion
+
+
+
+    //    ClearSteps("Facility");
+    //    cboEHPFacility.Items.Clear();
+    //    cboEHPFacility.Items.Add(new ListItem("Select Facility", "0"));
+
+    //    if (dsLocation != null)
+    //    {
+    //            DataTable dt = dsLocation.Tables["locations"];
+    //            DataView dv = dt.DefaultView;
+    //            dv.Sort = "name";
+    //            dt = dv.ToTable();
+    //            if (dt.Rows.Count > 0)
+    //        {
+    //            foreach (DataRow dr in dt.Rows)
+    //            {//Remaining to check enable.need to check when get details.
+    //             // if (ds.Tables["address"].Rows[0]["state_name"].ToString() != API.Session.SWState) continue;
+    //                    if (dr["id"].ToString()== "46679" )// || dr["id"].ToString() == "39341") //|| dr["id"].ToString() == "44736"
+    //                {
+
+
+    //                    }
+    //                else if (dr["name"].ToString().Trim() == "OFFICE ONEONTA" || dr["name"].ToString().Trim() == "OFFICE HAMILTON DR SHOTTS" || dr["name"].ToString().Trim() == "OFFICE HAMILTON DR COBB" || dr["name"].ToString().Trim() == "OFFICE GREENVILLE" || dr["name"].ToString().Trim() == "OFFICE GARDENDALE" || dr["name"].ToString().Trim() == "OFFICE CENTREVILLE")
+    //                {
+
+    //                }
+    //                else
+    //                {
+    //                    cboEHPFacility.Items.Add(new ListItem(dr["name"].ToString(), dr["id"].ToString()));
+    //                }
+    //            }
+    //        }
+    //    }
+    // //   }
+    //    lbApptSlotMore.Visible = false;
+    //    lbNewPatient.Visible = false;
+    //}
+
     protected void RefreshEHPFacilities_API()
     {
+        int entityid = 0;
         string[] Locarray = cboLocation.SelectedItem.Value.Split('^');
         API.Session.ChState = Locarray[0].ToString();
         if (Locarray[0].ToString() == "ETN")
@@ -373,12 +465,6 @@ public partial class ScheduleApptWithCareCloud : System.Web.UI.Page
         {
             Label3.Text = "Appointment Slot (Central Time)";
         }
-        //if (Locarray[0] == "AL")
-        //{
-        //    Response.Redirect("~/ScheduleAppt.aspx");
-        //}
-        //else { 
-
         #region Get Facility
 
         var responseString = "";
@@ -413,41 +499,47 @@ public partial class ScheduleApptWithCareCloud : System.Web.UI.Page
 
 
         #endregion
-
-
-
         ClearSteps("Facility");
         cboEHPFacility.Items.Clear();
         cboEHPFacility.Items.Add(new ListItem("Select Facility", "0"));
 
-        if (dsLocation != null)
-        {
-                DataTable dt = dsLocation.Tables["locations"];
-                DataView dv = dt.DefaultView;
-                dv.Sort = "name";
-                dt = dv.ToTable();
-                if (dt.Rows.Count > 0)
+        //if (dsLocation != null)
+        //{
+            DataTable dt = new DataTable();
+
+            if (Locarray[0].ToString() == "AL")
+            {
+                API.Session.EntityID = 1;
+            }
+            else if (Locarray[0].ToString() == "ETN")
+            {
+                API.Session.EntityID = 2;
+            }
+            else if (Locarray[0].ToString() == "TN")
+            {
+                API.Session.EntityID = 3;
+            }
+            dt = API.Session.GetFacilities(API.Session.EntityID);
+
+            if (dt.Rows.Count > 0)
             {
                 foreach (DataRow dr in dt.Rows)
-                {//Remaining to check enable.need to check when get details.
-                 // if (ds.Tables["address"].Rows[0]["state_name"].ToString() != API.Session.SWState) continue;
-                        if (dr["id"].ToString()== "46679"  || dr["id"].ToString() == "39341") //|| dr["id"].ToString() == "44736"
-                    {
-                       
-                          
-                        }
-                    else if (dr["name"].ToString().Trim() == "OFFICE ONEONTA" || dr["name"].ToString().Trim() == "OFFICE HAMILTON DR SHOTTS" || dr["name"].ToString().Trim() == "OFFICE HAMILTON DR COBB" || dr["name"].ToString().Trim() == "OFFICE GREENVILLE" || dr["name"].ToString().Trim() == "OFFICE GARDENDALE" || dr["name"].ToString().Trim() == "OFFICE CENTREVILLE")
-                    {
+                {
+                    //if (dr["FacilityID"].ToString() == "46679")
+                    //{
 
-                    }
-                    else
-                    {
-                        cboEHPFacility.Items.Add(new ListItem(dr["name"].ToString(), dr["id"].ToString()));
-                    }
+                    //}
+                    //else if (dr["FacilityName"].ToString().Trim() == "OFFICE ONEONTA" || dr["FacilityName"].ToString().Trim() == "OFFICE HAMILTON DR SHOTTS" || dr["FacilityName"].ToString().Trim() == "OFFICE HAMILTON DR COBB" || dr["FacilityName"].ToString().Trim() == "OFFICE GREENVILLE" || dr["FacilityName"].ToString().Trim() == "OFFICE GARDENDALE" || dr["FacilityName"].ToString().Trim() == "OFFICE CENTREVILLE")
+                    //{
+
+                    //}
+                    //else
+                    //{
+                        cboEHPFacility.Items.Add(new ListItem(dr["FacilityName"].ToString(), dr["CCFacilityID"].ToString()));
+                    //}
                 }
             }
-        }
-     //   }
+       // }
         lbApptSlotMore.Visible = false;
         lbNewPatient.Visible = false;
     }
@@ -533,7 +625,7 @@ public partial class ScheduleApptWithCareCloud : System.Web.UI.Page
                 cboApptType.Items.Add(new ListItem("Select Appointment Type", "0"));
 
                 DataTable dt1 = new DataTable();
-                dt1 = API.Session.GetAppointmentType(cboEHPDoctor.SelectedItem.Value.ToString());
+                dt1 = API.Session.GetAppointmentType(cboEHPDoctor.SelectedItem.Value.ToString(),cboEHPFacility.SelectedItem.Value.ToString(),API.Session.EntityID);
 
                 if (dt1.Rows.Count > 0)
                 {
@@ -541,9 +633,9 @@ public partial class ScheduleApptWithCareCloud : System.Web.UI.Page
                     foreach (DataRow dr1 in dt1.Rows)
                     {
 
-                        if (dr1["ApptTypeId"].ToString() != "")
+                        if (dr1["CCApptTypeID"].ToString() != "")
                         {
-                            cboApptType.Items.Add(new ListItem(dr1["DisplayName"].ToString(), dr1["ApptTypeId"].ToString()));
+                            cboApptType.Items.Add(new ListItem(dr1["DisplayName"].ToString(), dr1["CCApptTypeID"].ToString()));
                         }
 
 
@@ -739,7 +831,7 @@ public partial class ScheduleApptWithCareCloud : System.Web.UI.Page
         cboEHPDoctor.Items.Add(new ListItem("Select Doctor", "0"));
 
         DataTable dt1 = new DataTable();
-        dt1 = API.Session.GetDoctors(cboEHPFacility.SelectedItem.Value.ToString());
+        dt1 = API.Session.GetDoctors(cboEHPFacility.SelectedItem.Value.ToString(),API.Session.EntityID);
 
         if (dt1.Rows.Count > 0)
         {
@@ -747,9 +839,9 @@ public partial class ScheduleApptWithCareCloud : System.Web.UI.Page
             foreach (DataRow dr1 in dt1.Rows)
             {
 
-                if (dr1["DoctorId"].ToString() != "")
+                if (dr1["CCDoctorId"].ToString() != "")
                 {
-                    cboEHPDoctor.Items.Add(new ListItem(dr1["DisplayName"].ToString(), dr1["DoctorId"].ToString()));
+                    cboEHPDoctor.Items.Add(new ListItem(dr1["DisplayName"].ToString(), dr1["CCDoctorId"].ToString()));
                 }
 
 
@@ -812,7 +904,7 @@ public partial class ScheduleApptWithCareCloud : System.Web.UI.Page
     //             // if (ds.Tables["address"].Rows[0]["state_name"].ToString() != API.Session.SWState) continue;
     //                if (dr["name"].ToString() != "")
     //                {
-    //                    if (dr["name"].ToString().Contains("TESTING"))
+    //                    if (dr["name"].ToString().Contains("testforinfo"))
     //                    {
 
     //                    }
@@ -1051,7 +1143,7 @@ public partial class ScheduleApptWithCareCloud : System.Web.UI.Page
     }
     protected void Err(int num, string msg)
     {
-        litError.Text += "Error " + num.ToString() + " - " + msg + "<br />";
+        litError.Text += "Error "+ msg + "<br />";// + num.ToString() + " - " 
     }
     protected bool ValidateFields()
     {
@@ -1217,14 +1309,15 @@ public partial class ScheduleApptWithCareCloud : System.Web.UI.Page
                     API.Session.FacilityContact = address2;
                 }
 
-                SendClinicEmail();
-                SendReferringEmail();
                 string[] Locarray = cboLocation.SelectedItem.Value.Split('^');
 
                 API.Session.CreateAppointmentLog(API.Session.Email, Convert.ToInt32(Locarray[1].ToString())
                     , cboEHPFacility.SelectedItem.Text, cboEHPDoctor.SelectedItem.Text, cboApptType.SelectedItem.Text
                     , Convert.ToDateTime(cboApptSlot.SelectedItem.ToString()), (API.Session.ChState.ToString() == "ETN" ? "EST" : "CST")
-                    , hdnpId.Value, API.Session.Phone, eye, txtReason.Text, "", API.Session.PracticeName, API.Session.ChState.ToString());
+                    , hdnpId.Value, API.Session.Phone, eye, txtReason.Text, "Success", API.Session.PracticeName, API.Session.ChState.ToString());
+
+                SendClinicEmail();
+                SendReferringEmail();
                 Response.Redirect("~/CareCloudApptDetails.aspx");
 
             }
@@ -1235,6 +1328,29 @@ public partial class ScheduleApptWithCareCloud : System.Web.UI.Page
         }
         catch (Exception ex)
         {
+            string eye = "Eye: ";
+            if(ex.Message.ToString()== "The remote server returned an error: (400) Bad Request.")
+            {
+                if (API.Session.SWEye == API.Eye.Both) eye += "Both";
+                if (API.Session.SWEye == API.Eye.Left) eye += "Left";
+                if (API.Session.SWEye == API.Eye.Right) eye += "Right";
+                string[] Locarray = cboLocation.SelectedItem.Value.Split('^');
+                API.Session.CreateAppointmentLog(API.Session.Email, Convert.ToInt32(Locarray[1].ToString())
+                        , cboEHPFacility.SelectedItem.Text, cboEHPDoctor.SelectedItem.Text, cboApptType.SelectedItem.Text
+                        , Convert.ToDateTime(cboApptSlot.SelectedItem.ToString()), (API.Session.ChState.ToString() == "ETN" ? "EST" : "CST")
+                        , hdnpId.Value, API.Session.Phone, eye, txtReason.Text, "Failed", API.Session.PracticeName, API.Session.ChState.ToString());
+
+
+            }
+            //if (API.Session.SWEye == API.Eye.Both) eye += "Both";
+            //if (API.Session.SWEye == API.Eye.Left) eye += "Left";
+            //if (API.Session.SWEye == API.Eye.Right) eye += "Right";
+            //string[] Locarray = cboLocation.SelectedItem.Value.Split('^');
+            //API.Session.CreateAppointmentLog(API.Session.Email, Convert.ToInt32(Locarray[1].ToString())
+            //      , cboEHPFacility.SelectedItem.Text, cboEHPDoctor.SelectedItem.Text, cboApptType.SelectedItem.Text
+            //      , Convert.ToDateTime(cboApptSlot.SelectedItem.ToString()), (API.Session.ChState.ToString() == "ETN" ? "EST" : "CST")
+            //      , hdnpId.Value, API.Session.Phone, eye, txtReason.Text, "Failed", API.Session.PracticeName, API.Session.ChState.ToString());
+
             Err(1108, "Appointment Cannot be created for selected slot.");
             Label1.Text = "";
             // throw;
@@ -1640,6 +1756,7 @@ public partial class ScheduleApptWithCareCloud : System.Web.UI.Page
     protected void SetApptSlot(int apptslotid)
     {
                     cboApptSlot.SelectedIndex = apptslotid;
+        lbNewPatient.Visible = true;
         SetPatient();
      
         //   refreshPatient_API();

@@ -135,7 +135,7 @@ public partial class AddPatientWithCareCloud : System.Web.UI.Page
 
     protected void Err(int number, string msg)
     {
-        litError.Text += "Error: " + number.ToString() + " - " + msg + "<br /><br />";
+        litError.Text += "Error: "+ msg + "<br /><br />";//" + number.ToString() + " - " 
     }
 
     protected void ValidationErr(string msg)
@@ -155,6 +155,7 @@ public partial class AddPatientWithCareCloud : System.Web.UI.Page
         Regex regex = new Regex(@"[^\d]");
         string phonenum = regex.Replace(txtPhone.Text, "");
         string location = API.Session.ChState.ToString();
+        if (Convert.ToInt32(phonenum.Length) < 10 || Convert.ToInt32(phonenum.Length) > 10) { Err(1116, "You must provide the valid Phone number."); return false; }
         var Result = API.Session.ValidatePatient(txtFirstName.Text, txtLastName.Text, cboGender.SelectedValue.ToString(), Convert.ToDateTime(txtDOB.Text), phonenum, txtSSN.Text, API.Session.CityName.ToString(), location);
         if (Result == "false" || Result=="")
         {

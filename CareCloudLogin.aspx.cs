@@ -63,11 +63,11 @@ public partial class CareCloudLogin : System.Web.UI.Page
 
     private void RefreshLoginMode()
     {
-        try 
+        try
         {
             DataTable dt = new DataTable();
             dt = API.Session.GetCareCloudMasterUserList();
-            string state = ""; 
+            string state = "";
             bool IsStateAvailable = false;
             API.Location[] data = API.Session.GetLocationsforTN(API.Session.Email);//API.Session.GUID
             ddlLoginMode.Items.Clear();
@@ -77,18 +77,18 @@ public partial class CareCloudLogin : System.Web.UI.Page
                 //for (int a = 0; a < data.Length; a++)
                 //{
 
-                    // if (data[a].Database == "Birmingham") state = "AL";
-                    // if (data[a].Database == "Nashville") state = "IT";
-                    //if (data[a].Database == "Nashville") state = "TN";
-                    //if (data[a].Database == "EHPortal") state = "TN";
-                    //if (data[a].Database == "EHPortal") state = "AL";
-                    if (dt.Rows.Count > 0)
+                // if (data[a].Database == "Birmingham") state = "AL";
+                // if (data[a].Database == "Nashville") state = "IT";
+                //if (data[a].Database == "Nashville") state = "TN";
+                //if (data[a].Database == "EHPortal") state = "TN";
+                //if (data[a].Database == "EHPortal") state = "AL";
+                if (dt.Rows.Count > 0)
+                {
+                    foreach (DataRow dr in dt.Rows)
                     {
-                        foreach (DataRow dr in dt.Rows)
-                        {
-                            //if (data[a].Database == "EHPortal")
-                            //{
-                            if (API.Session.IsAL == true && API.Session.IsMiddleTN == true && API.Session.IsEastTN == true)// && API.Session.IsEastTN == true
+                        //if (data[a].Database == "EHPortal")
+                        //{
+                        if (API.Session.IsAL == true && API.Session.IsMiddleTN == true && API.Session.IsEastTN == true)// && API.Session.IsEastTN == true
                         {
                             if (dr["state"].ToString() == "TN" || dr["state"].ToString() == "AL" || dr["state"].ToString() == "ETN")
                             {
@@ -96,17 +96,17 @@ public partial class CareCloudLogin : System.Web.UI.Page
 
                                 ddlLoginMode.Items.Add(new ListItem(dr["PracticeName"].ToString(), dr["practiceId"].ToString()));
                             }
-                            }
+                        }
                         else if (API.Session.IsAL == true && API.Session.IsMiddleTN == true && API.Session.IsEastTN != true)// && API.Session.IsEastTN == true
                         {
-                            if (dr["state"].ToString() == "TN" || dr["state"].ToString() == "AL" )
+                            if (dr["state"].ToString() == "TN" || dr["state"].ToString() == "AL")
                             {
                                 IsStateAvailable = true;
 
                                 ddlLoginMode.Items.Add(new ListItem(dr["PracticeName"].ToString(), dr["practiceId"].ToString()));
                             }
                         }
-                      
+
                         else if (API.Session.IsAL != true && API.Session.IsMiddleTN == true && API.Session.IsEastTN == true)// (API.Session.IsMiddleTN == true || API.Session.IsEastTN == true)
                         {
                             if (dr["state"].ToString() == "TN" || dr["state"].ToString() == "ETN")
@@ -118,7 +118,7 @@ public partial class CareCloudLogin : System.Web.UI.Page
                         }
                         else if (API.Session.IsAL != true && API.Session.IsMiddleTN == true && API.Session.IsEastTN != true)// (API.Session.IsMiddleTN == true || API.Session.IsEastTN == true)
                         {
-                            if (dr["state"].ToString() == "TN" )
+                            if (dr["state"].ToString() == "TN")
                             {
                                 IsStateAvailable = true;
 
@@ -127,7 +127,7 @@ public partial class CareCloudLogin : System.Web.UI.Page
                         }
                         else if (API.Session.IsAL != true && API.Session.IsMiddleTN != true && API.Session.IsEastTN == true)// (API.Session.IsMiddleTN == true || API.Session.IsEastTN == true)
                         {
-                            if ( dr["state"].ToString() == "ETN")
+                            if (dr["state"].ToString() == "ETN")
                             {
                                 IsStateAvailable = true;
 
@@ -145,7 +145,7 @@ public partial class CareCloudLogin : System.Web.UI.Page
                         }
                         else if (API.Session.IsAL == true && API.Session.IsMiddleTN != true && API.Session.IsEastTN != true)// && (API.Session.IsMiddleTN != true || API.Session.IsEastTN != true))
                         {
-                            if (dr["state"].ToString() == "AL" )
+                            if (dr["state"].ToString() == "AL")
                             {
                                 IsStateAvailable = true;
 
@@ -178,14 +178,35 @@ public partial class CareCloudLogin : System.Web.UI.Page
 
 
                     }
-                    }
-               // }
+                }
+                // }
             }
             if (IsStateAvailable == false)
             { Response.Redirect("~/ScheduleAppt.aspx"); }
-        } 
+        }
         catch (Exception ex) { }
     }
+
+    //protected void RefreshLoginMode()
+    //{
+    //    ddlLoginMode.Items.Clear();
+    //    ddlLoginMode.Items.Add(new ListItem("Select Your Location", "0"));
+
+    //    DataTable dt1 = new DataTable();
+    //    dt1 = API.Session.GetLoginModes();
+
+    //    if (dt1.Rows.Count > 0)
+    //    {
+
+    //        foreach (DataRow dr1 in dt1.Rows)
+    //        {
+    //            if (dr1["SEESEntityID"].ToString() != "")
+    //            {
+    //                ddlLoginMode.Items.Add(new ListItem(dr1["SEESEntityName"].ToString(), dr1["SEESEntityID"].ToString()));
+    //            }
+    //        }
+    //    }
+    //}
 
     private void GetAccesstoken()
     {
@@ -216,5 +237,10 @@ public partial class CareCloudLogin : System.Web.UI.Page
     protected void LnkBtnCareCloudLogin_Click(object sender, EventArgs e)
     {
         Response.Redirect("https://platform.carecloud.com/oauth2/authorize?client_id=" + Statics.ClientID + "&response_type=code&redirect_uri=" + Statics.RedirectUrl);
+    }
+
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("~/");
     }
 }

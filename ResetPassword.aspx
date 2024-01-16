@@ -1,6 +1,52 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ResetPassword.aspx.cs" Inherits="ResetPassword" %>
 
 <!DOCTYPE html>
+<style>
+    .loader-container {
+            background: #07253121;
+            top: 0;
+            left: 0;
+            z-index: 50;
+            width: 100%;
+            height: 100%;
+            position: fixed;
+        }
+
+        .load {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+    .lds-dual-ring {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6px solid #fff;
+  border-color: #5c9692 transparent #5c9692 transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+</style>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
@@ -9,6 +55,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="styles.css" rel="stylesheet" />
     <title><%=Application.Get("Title").ToString() %></title>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#btnCancel").click(function () {
+                $(".loader-container").show();
+                setTimeout(function () {
+                    $(".loader-container").hide();
+                }, 45000);
+            });
+
+        });
+    </script>
 </head>
 <body>
     <header>

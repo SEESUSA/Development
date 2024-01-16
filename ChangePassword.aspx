@@ -4,7 +4,52 @@
 <%@ Register Src="~/Tasks.ascx" TagName="Tasks" TagPrefix="uc1" %>
 
 <!DOCTYPE html>
+<style>
+    .loader-container {
+            background: #07253121;
+            top: 0;
+            left: 0;
+            z-index: 50;
+            width: 100%;
+            height: 100%;
+            position: fixed;
+        }
 
+        .load {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+    .lds-dual-ring {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6px solid #fff;
+  border-color: #5c9692 transparent #5c9692 transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+</style>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
     <meta charset="utf-8" />
@@ -16,6 +61,7 @@
     <script src="Scripts/jquery-3.6.0.min.js"></script>
     <script src="Scripts/jquery-ui-1.13.2.min.js"></script>
      <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css"/>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script type="text/javascript">
         // When the document is ready
         $(document).ready(function () {
@@ -29,6 +75,13 @@
             // Prevent the modal from closing when clicking inside it
             $(".modal-content").click(function (e) {
                 e.stopPropagation();
+            });
+
+            $("#btnCancel").click(function () {
+                $(".loader-container").show();
+                setTimeout(function () {
+                    $(".loader-container").hide();
+                }, 45000);
             });
         });
 

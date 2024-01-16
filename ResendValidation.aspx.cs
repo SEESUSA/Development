@@ -58,6 +58,6 @@ public partial class ResendValidation : System.Web.UI.Page
     }
     private void Err(int num, string msg)
     {
-        litError.Text += "Error " + num.ToString() + " - " + msg + "<br />";
+        litError.Text += "Error " + msg + "<br />";// + num.ToString() + " - "
     }
 }

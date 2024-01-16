@@ -63,11 +63,12 @@ public partial class ChangePassword : System.Web.UI.Page
     }
     protected void btnCancel_Click(object sender, EventArgs e)
     {
-        if (API.Session.IsAdmin) Response.Redirect("~/Admin/");
-        else Response.Redirect("~/");    
+      //  if (API.Session.IsAdmin) Response.Redirect("~/Admin/");
+      //  else 
+            Response.Redirect("~/");    
     }
     protected void Err(int num, string msg)
     {
-        litError.Text += "Error " + num.ToString() + " - " + msg + "<br />";
+        litError.Text += "Error " + msg + "<br />";//+ num.ToString() + " - " 
     }
 }

@@ -356,4 +356,10 @@
         }, 30000);
     });
 
+    $("#btnCancel").click(function () {
+        $(".loader-container").show();
+        setTimeout(function () {
+            $(".loader-container").hide();
+        }, 45000);
+    });
 </script> 

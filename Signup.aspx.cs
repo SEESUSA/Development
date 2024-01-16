@@ -92,7 +92,7 @@ public partial class Signup : System.Web.UI.Page
     }
     protected void Err(int num, string msg)
     {
-        litError.Text += "Error " + num.ToString() + " - " + msg + "<br />";
+        litError.Text += "Error "  + msg + "<br />";//+ num.ToString() + " - "
     }
     #endregion
 
